@@ -12,17 +12,42 @@ public class ProjectController: Controller
         {
             new Project
             {
-                ProjectId = 1, 
-                Name = "Project 1", 
-                Description = "Project", 
-                StartDate = new DateTime(2025, 03, 08), 
+                ProjectId = 1,
+                Name = "Project 1",
+                Description = "Project",
+                StartDate = new DateTime(2025, 03, 08),
                 EndDate = new DateTime(2025, 04, 08),
                 Status = "In Progress"
-            },
+            }
         };
-        
         return View(projects);
     }
     
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Project project)
+    {
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Details(int id)
+    {
+        var project = new Project
+        {
+            ProjectId = id,
+            Name = "Project 1",
+            Description = "Project",
+            StartDate = new DateTime(2025, 03, 08),
+            EndDate = new DateTime(2025, 04, 08),
+            Status = "In Progress"
+        };
+        return View(project);
+    }
     
 }
