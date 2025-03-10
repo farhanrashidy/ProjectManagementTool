@@ -14,8 +14,24 @@ public class ProjectController: Controller
             {
                 ProjectId = 1,
                 Name = "Project 1",
-                Description = "Project",
+                Description = "Assignment",
                 StartDate = new DateTime(2025, 03, 08),
+                EndDate = new DateTime(2025, 04, 08),
+                Status = "In Progress"
+            },
+            new Project{
+                ProjectId = 2,
+                Name = "Project 2",
+                Description = "Lab Project",
+                StartDate = new DateTime(2025, 03, 12),
+                EndDate = new DateTime(2025, 04, 08),
+                Status = "In Progress"
+            },
+            new Project{
+                ProjectId = 2,
+                Name = "Project 2",
+                Description = "Lab Project",
+                StartDate = new DateTime(2025, 03, 12),
                 EndDate = new DateTime(2025, 04, 08),
                 Status = "In Progress"
             }
@@ -40,13 +56,14 @@ public class ProjectController: Controller
     {
         var project = new Project
         {
-            ProjectId = id,
+            ProjectId = 1,
             Name = "Project 1",
-            Description = "Project",
+            Description = "Group Assignment worth 20% of your grade",
             StartDate = new DateTime(2025, 03, 08),
             EndDate = new DateTime(2025, 04, 08),
             Status = "In Progress"
         };
+        
         return View(project);
     }
     
