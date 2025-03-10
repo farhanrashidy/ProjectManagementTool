@@ -1,41 +1,23 @@
+using COMP2139_PRACTICE.Data;
 using COMP2139_PRACTICE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace COMP2139_PRACTICE.Controllers;
 
 public class ProjectController: Controller
 {
+    private readonly ApplicationDbContext _context;
+    
+    public ProjectController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+    
     [HttpGet]
     public IActionResult Index()
     {
-        var projects = new List<Project>
-        {
-            new Project
-            {
-                ProjectId = 1,
-                Name = "Project 1",
-                Description = "Assignment",
-                StartDate = new DateTime(2025, 03, 08),
-                EndDate = new DateTime(2025, 04, 08),
-                Status = "In Progress"
-            },
-            new Project{
-                ProjectId = 2,
-                Name = "Project 2",
-                Description = "Lab Project",
-                StartDate = new DateTime(2025, 03, 12),
-                EndDate = new DateTime(2025, 04, 08),
-                Status = "In Progress"
-            },
-            new Project{
-                ProjectId = 2,
-                Name = "Project 2",
-                Description = "Lab Project",
-                StartDate = new DateTime(2025, 03, 12),
-                EndDate = new DateTime(2025, 04, 08),
-                Status = "In Progress"
-            }
-        };
+        var projects = _context.Projects.ToList();
         return View(projects);
     }
     
@@ -46,24 +28,86 @@ public class ProjectController: Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Create(Project project)
     {
-        return RedirectToAction("Index");
+        if (ModelState.IsValid)
+        {
+            _context.Projects.Add(project);   // Add new project to database 
+            _context.SaveChanges();           // Save changes to the database
+            return RedirectToAction("Index");
+        }
+        
+        return View(project);
     }
 
     [HttpGet]
     public IActionResult Details(int id)
     {
-        var project = new Project
+        var project = _context.Projects.FirstOrDefault(p => p.ProjectId == id);
+        if (project == null)
         {
-            ProjectId = 1,
-            Name = "Project 1",
-            Description = "Group Assignment worth 20% of your grade",
-            StartDate = new DateTime(2025, 03, 08),
-            EndDate = new DateTime(2025, 04, 08),
-            Status = "In Progress"
-        };
+            return NotFound();
+        }
+        return View(project);
+    }
+    
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        var project = _context.Projects.Find(id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+        return View(project);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, [Bind("ProjectId, Name, Description, StartDate, EndDate, Status")] Project project)
+    {
+        if (id != project.ProjectId)
+        {
+            return NotFound();
+        }
         
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Projects.Update(project);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProjectExists(project.ProjectId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        return View(project);
+    }
+
+    private bool ProjectExists(int id)
+    {
+        return _context.Projects.Any(e => e.ProjectId == id);
+    }
+    
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        var project = _context.Projects.FirstOrDefault(p => p.ProjectId == id);
+        if (project == null)
+        {
+            return NotFound();
+        }
         return View(project);
     }
     
