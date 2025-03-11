@@ -10,18 +10,18 @@
 <div class="card">
     
     <div class="card-body">
-        <div class="card-title">@Model.Name</div>
+        @*<div class="card-header">@Model.Name</div>*@
         @* <div class="card-text">@Model.Description</div> *@
         @* <div class="card-text">@Model.StartDate</div> *@
         @* <div class="card-text">@Model.EndDate</div> *@
         @* <div class="card-text">@Model.Status</div> *@
 
         <dl class="row">
+            <dt class="col-sm-3">Project Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
             <dt class="col-sm-3">Project Id</dt>
             <dd class="col-sm-9">@Model.ProjectId</dd>
-
-            @*<dt class="col-sm-3">Project Name</dt>
-        <dd class="col-sm-9">@Model.Name</dd>*@
 
             <dt class="col-sm-3">Description</dt>
             <dd class="col-sm-9">@Model.Description</dd>
@@ -35,7 +35,6 @@
             <dt class="col-sm-3">Status</dt>
             <dd class="col-sm-9">@Model.Status</dd>
         </dl>
-        <a asp-action="Edit" asp-route-id="@Model.ProjectId" class="btn btn-primary">Edit</a>
         <a asp-action="Index" class="btn btn-secondary">Back to Project List</a>
     </div>
     

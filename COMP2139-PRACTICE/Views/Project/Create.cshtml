@@ -19,31 +19,37 @@
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    
-    <div class="mb-3">
-        <label asp-for="StartDate" class="form-label">Start Date</label>
-        <input asp-for="StartDate" type="date" class="form-control"/>
-        <span asp-validation-for="StartDate" class="text-danger"></span>
-    </div>
 
-    <div class="mb-3">
-        <label asp-for="EndDate" class="form-label">Deadline</label>
-        <input asp-for="EndDate" type="date" class="form-control"/>
-        <span asp-validation-for="EndDate" class="text-danger"></span>
+    
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="StartDate" class="form-label">Start Date</label>
+            <input asp-for="StartDate" type="date" class="form-control"/>
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="EndDate" class="form-label">End Date</label>
+            <input asp-for="EndDate" type="date" class="form-control"/>
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            <label asp-for="Status" class="form-label">Project Status</label>
+            <select asp-for="Status" class="form-control">
+                <option selected></option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Complete">Complete</option>
+            </select>
+        </div>
     </div>
     
-    <div class="mb-3">
-        <label asp-for="Status" class="form-label">Project Status</label>
-        <select asp-for="Status" class="form-control">
-            <option selected>Choose...</option>
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-        </select>
-    </div>
-    
+   
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary"/>
+        <a asp-action="Index" class="btn btn-warning">Cancel</a>
     </div>
     
 </form>
