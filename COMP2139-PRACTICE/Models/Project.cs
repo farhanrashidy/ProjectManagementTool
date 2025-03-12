@@ -18,4 +18,8 @@ public class Project
     public DateTime EndDate { get; set; }
     
     public string? Status { get; set; }
+    
+    // One-to-many: A project can have many Tasks
+    public List<ProjectTask>? Tasks { get; set; } = new();
+
 }

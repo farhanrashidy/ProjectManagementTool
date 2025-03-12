@@ -18,7 +18,7 @@ public class ProjectController: Controller
     public IActionResult Index()
     {
         var projects = _context.Projects.ToList();
-        return View(projects);
+        return View(projects); //
     }
     
     [HttpGet]

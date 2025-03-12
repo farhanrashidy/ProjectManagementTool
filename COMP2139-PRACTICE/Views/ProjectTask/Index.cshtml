@@ -1,0 +1,42 @@
+@model IEnumerable<ProjectTask>
+
+@{
+    ViewBag.Title = "List of Taks";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<a asp-action="Create" asp-route-projectId="@ViewBag.ProjectId" class="btn btn-success">New Task</a>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Task Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Project Id</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                @*<td>@project.ProjectId</td>*@
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.Status</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@task.TaskId" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@task.TaskId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a asp-controller="Project" asp-action="Index" class="btn btn-primary">Back to Projects</a>
+</div>
